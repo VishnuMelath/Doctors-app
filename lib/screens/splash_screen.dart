@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:doctors/screens/boarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,40 +16,49 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
   late Animation<Offset> _docAnimation;
   late Animation<Offset> _findAnimation;
-  late double padding;
-  late double opacity;
-  late double leftPadding;
+  late Animation<double> _opacityAnimation;
   @override
   void initState() {
-    // padding = 100;
-    // leftPadding = 40;
-    // opacity = 0;
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   startAnimation();
-    // });
-
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
     );
-
+    _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
     _docAnimation = Tween<Offset>(
-      begin: const Offset(-.5, 0),
+      begin: const Offset(0.2, 0),
       end: const Offset(0, 0),
     ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+      CurvedAnimation(parent: _controller, curve: Curves.decelerate),
     );
 
     _findAnimation = Tween<Offset>(
-      begin: const Offset(-1.5, 4),
+      begin: const Offset(-0.1, 1),
       end: const Offset(0, 0),
     ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
 
     _controller.forward();
-
+    _controller.addListener(
+      () {
+        if (_controller.isAnimating == false) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BoardingScreen(),
+              ));
+        }
+      },
+    );
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -95,12 +105,12 @@ class _SplashScreenState extends State<SplashScreen>
                               horizontal: 8, vertical: 1),
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(100)),
                           child: Text(
                             'DOC',
                             style: GoogleFonts.cormorantSc(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 30,
+                                fontSize: 25,
                                 color: Colors.blueAccent),
                           )),
                     ),
@@ -108,13 +118,16 @@ class _SplashScreenState extends State<SplashScreen>
                       position: _findAnimation,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 5.0),
-                        child: Text(
-                          'FIND',
-                          //   style: TextStyle(fontSize: 25, color: Colors.white),
-                          style: GoogleFonts.cormorantSc(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                              color: Colors.white),
+                        child: FadeTransition(
+                          opacity: _opacityAnimation,
+                          child: Text(
+                            'FIND',
+                            //   style: TextStyle(fontSize: 25, color: Colors.white),
+                            style: GoogleFonts.cormorantSc(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     )
@@ -126,13 +139,5 @@ class _SplashScreenState extends State<SplashScreen>
         ],
       ),
     );
-  }
-
-  void startAnimation() {
-    setState(() {
-      padding = 0;
-      leftPadding = 0;
-      opacity = 1;
-    });
   }
 }
