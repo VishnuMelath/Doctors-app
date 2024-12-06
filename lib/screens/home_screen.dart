@@ -11,11 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
-    ));
     return SafeArea(
       child: Scaffold(
         extendBody: true,
@@ -74,6 +69,9 @@ class HomeScreen extends StatelessWidget {
                             color: CustomColors.primaryColor,
                           ),
                         )),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   RichText(
                       text: TextSpan(

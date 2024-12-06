@@ -4,6 +4,7 @@ import 'package:doctors/screens/profile_screen.dart';
 import 'package:doctors/theme/colors.dart';
 import 'package:doctors/utils/animated_routing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //todo  complete bottom nav bar ontap and switching selected option
 class CustomBottomNavBar extends StatelessWidget {
@@ -66,7 +67,15 @@ Widget customBNItem(BuildContext context, Widget child, int index,
       log('tapped');
       if (index == 3) {
         log('profile');
-        Navigator.push(context, createRoute(child: const ProfileScreen()));
+        Navigator.push(context, createRoute(child: const ProfileScreen())).then(
+          (value) {
+            SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+              statusBarColor: Colors.white,
+              statusBarBrightness: Brightness.dark,
+              statusBarIconBrightness: Brightness.dark,
+            ));
+          },
+        );
       }
     },
     child: Container(

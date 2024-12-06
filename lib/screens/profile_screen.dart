@@ -1,5 +1,6 @@
 import 'package:doctors/theme/colors.dart';
 import 'package:doctors/theme/font_style.dart';
+import 'package:doctors/widgets/custom_profile_options_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -40,6 +41,9 @@ class ProfileScreen extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Container(
                   // height: 100,
@@ -103,6 +107,44 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       )
                     ],
+                  ),
+                ),
+                customProfileOptionTile('Edit profile', Icons.edit),
+                customProfileOptionTile('My Jobs', Icons.category),
+                customProfileOptionTile(
+                    'Privacy policy', Icons.privacy_tip_outlined),
+                customProfileOptionTile(
+                    'Terms & conditions', Icons.description_outlined),
+                customProfileOptionTile(
+                    'Edit profile', Icons.support_agent_rounded),
+                ListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  leading: const Icon(
+                    Icons.logout,
+                    color: Colors.red,
+                    size: 20,
+                  ),
+                  title: Text(
+                    'Log out',
+                    style: montserrat.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.red,
+                        fontSize: 14),
+                  ),
+                ),
+                ListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  leading: const Icon(
+                    Icons.delete_outline,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                  title: Text(
+                    'Remove account',
+                    style: montserrat.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey,
+                        fontSize: 14),
                   ),
                 )
               ],
