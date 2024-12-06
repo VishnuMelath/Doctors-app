@@ -136,19 +136,41 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         const CustomJobTile(),
-                        Builder(builder: (context) {
-                          return const CustomJobTile();
-                        }),
-                        Builder(builder: (context) {
-                          return const CustomJobTile();
-                        }),
-                        Builder(builder: (context) {
-                          return const CustomJobTile();
-                        }),
+                        const CustomJobTile(),
+                        const CustomJobTile(),
+                        const CustomJobTile(),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Designed with Love ',
+                              style:
+                                  montserrat.copyWith(color: Colors.grey[200]),
+                            ),
+                            const Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                              size: 15,
+                            )
+                          ],
+                        ),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'GEEKSTACK',
+                              style: montserrat.copyWith(
+                                  color:
+                                      const Color.fromARGB(255, 204, 204, 204),
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w100),
+                            ))
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ))
           ],
