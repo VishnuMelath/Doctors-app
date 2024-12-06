@@ -1,6 +1,6 @@
-import 'dart:ui';
-
+import 'package:doctors/screens/home_screen.dart';
 import 'package:doctors/theme/font_style.dart';
+import 'package:doctors/utils/animated_routing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -123,7 +123,10 @@ class BoardingScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context, createRoute(child: const HomeScreen()));
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(

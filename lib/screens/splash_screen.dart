@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:doctors/screens/boarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,17 +16,19 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<Offset> _docAnimation;
   late Animation<Offset> _findAnimation;
   late Animation<double> _opacityAnimation;
+  late Image image1;
+  late Image image2;
   @override
   void initState() {
+    image1 = Image.asset('assets/doctor.png');
+    image2 = Image.asset('assets/company_icon.png');
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor:
-          Color.fromARGB(255, 27, 111, 207), // Status bar background color
-      statusBarBrightness: Brightness.light, // For iOS: text/icons color
-      statusBarIconBrightness:
-          Brightness.light, // For Android: text/icons color
+      statusBarColor: Color.fromARGB(255, 27, 111, 207),
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
     ));
     _controller = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       vsync: this,
     );
     _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -64,6 +64,13 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
+  void didChangeDependencies() {
+    precacheImage(image1.image, context);
+    precacheImage(image2.image, context);
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -91,17 +98,17 @@ class _SplashScreenState extends State<SplashScreen>
               Container(
                 height: MediaQuery.sizeOf(context).height,
                 width: MediaQuery.sizeOf(context).width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        stops: const [
+                        stops: [
                       0.35,
                       1
                     ],
                         colors: [
-                      const Color.fromARGB(228, 21, 101, 192)!,
-                      const Color.fromARGB(0, 30, 52, 151)
+                      Color.fromARGB(228, 21, 101, 192),
+                      Color.fromARGB(0, 30, 52, 151)
                     ])),
                 child: Center(
                   child: SizedBox(
